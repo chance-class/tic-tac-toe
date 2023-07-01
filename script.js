@@ -18,11 +18,7 @@ const displayController = (function() {
     } else if (e.target.textContent != "") {
       return;
     } else {
-      if (currentPlayer === playerOne) {
-        currentPlayer = playerTwo;
-      } else if (currentPlayer === playerTwo) {
-        currentPlayer = playerOne;
-      }
+      currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
       currentPlayer.addToBoard(currentPlayer.marker);
       const value = (gameBoard.getBoard().length - 1);
       e.target.textContent = gameBoard.getBoard()[`${value}`];
