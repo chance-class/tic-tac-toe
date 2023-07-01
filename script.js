@@ -1,11 +1,12 @@
 const gameBoard = (function() {
   const board = [];
-  return {board};
+  const getBoard = () => board;
+  return {getBoard};
 })();
 
 const player = (name, marker) => {
   const addToBoard = (marker) => {
-    gameBoard.board.push(`${marker}`);
+    gameBoard.getBoard().push(`${marker}`);
   }
   return {name, marker, addToBoard};
 }
@@ -23,8 +24,8 @@ const displayController = (function() {
         currentPlayer = playerOne;
       }
       currentPlayer.addToBoard(currentPlayer.marker);
-      const value = (gameBoard.board.length - 1);
-      e.target.textContent = gameBoard.board[`${value}`]
+      const value = (gameBoard.getBoard().length - 1);
+      e.target.textContent = gameBoard.getBoard()[`${value}`];
     }
   });  
   
