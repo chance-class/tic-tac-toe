@@ -1,6 +1,6 @@
 body {
   display: grid;
-  grid-template-columns: 1fr 3r 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   justify-items: center;
 }
 
@@ -10,14 +10,16 @@ header {
 
 h1 {
   font-size: 70px;
+  font-weight: 200;
   margin: 10px;
+  font-family: "Caprasimo", cursive, sans-serif;
 }
 
 .player1, 
 .player2 {
   display: grid;
   grid-auto-rows: 70px;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .container {
