@@ -42,8 +42,15 @@ const displayController = (function() {
     includesAll(playerOne.x, ["quad-1", "quad-5", "quad-9"]) || includesAll(playerOne.x, ["quad-3", "quad-5", "quad-7"])) {
       winner = playerOne;
       gameOver = true;
-      alert(`${playerOne.name} wins the game!`);
-    } 
+      headDiv.textContent = `${playerOne.name} wins the game!`;
+      const refresh = document.createElement("button");
+      headDiv.appendChild(refresh);
+      document.querySelector(".refresh").style.marginLeft = "15px";
+      refresh.textContent = "Play Again";
+      refresh.addEventListener("click", () => {
+
+      })
+    }
     if (winner !== playerOne)
     if (includesAll(playerTwo.o, ["quad-1", "quad-2", "quad-3"]) || includesAll(playerTwo.o, ["quad-4", "quad-5", "quad-6"]) || 
     includesAll(playerTwo.o, ["quad-7", "quad-8", "quad-9"]) || includesAll(playerTwo.o, ["quad-1", "quad-4", "quad-7"]) || 
@@ -51,7 +58,14 @@ const displayController = (function() {
     includesAll(playerTwo.o, ["quad-1", "quad-5", "quad-9"]) || includesAll(playerTwo.o, ["quad-3", "quad-5", "quad-7"])) {
       winner = playerTwo;
       gameOver = true;
-      alert(`${playerTwo.name} wins the game!`);
+      headDiv.textContent = `${playerTwo.name} wins the game!`;
+      const refresh = document.createElement("button");
+      headDiv.appendChild(refresh);
+      document.querySelector(".refresh").style.marginLeft = "15px";
+      refresh.textContent = "Play Again";
+      refresh.addEventListener("click", () => {
+        
+      })
     }
 
     else if (playerOne.x.length === 5) {
@@ -59,6 +73,8 @@ const displayController = (function() {
     }
     
   }
+
+
   let currentPlayer = playerOne;
   document.addEventListener("click", (e) => {
     if (!(e.target.closest(".quadrant"))) {
@@ -77,7 +93,7 @@ const displayController = (function() {
       }
     }
   }); 
-
+  return {gameOver};
   
 })();
 
@@ -88,4 +104,5 @@ header.appendChild(headDiv);
 document.querySelector(".head").style.fontSize = "20px";
 document.querySelector(".head").style.textAlign = "center";
 headDiv.textContent = "Player One's turn";
+
 
