@@ -8,12 +8,12 @@ const gameBoard = (function() {
 const player = (name, marker) => {
   let x = [], o = [];
   const addToBoard = (marker, quad) => {
-    gameBoard.getBoard().push(`${marker}`);
-    if (marker === "X") {
-      x.push(quad);
-    } else if (marker === "O") {
-      o.push(quad);
-    }
+      gameBoard.getBoard().push(`${marker}`);
+      if (marker === "X") {
+        x.push(quad);
+      } else if (marker === "O") {
+        o.push(quad);
+      }
 
   }
   return {name, marker, addToBoard, x, o};
@@ -101,6 +101,7 @@ change2.addEventListener("click", () => {
         playerTwo.o.splice(0, 5);
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
+        isRobot();
       })
     }
 
@@ -132,6 +133,7 @@ change2.addEventListener("click", () => {
         gameBoard.clearBoard();
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
+        isRobot();
       })
     }
     
@@ -160,9 +162,36 @@ change2.addEventListener("click", () => {
         gameBoard.clearBoard();
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
+        isRobot();
       })
     }
     
+  }
+  
+  const isRobot = () => {
+    if (playerTwo.name === "Robocop") {
+      if (currentPlayer === playerTwo) {
+        const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6", 
+        "quad-7", "quad-8", "quad-9"];
+        let roboChoice = choices[Math.floor(Math.random() * choices.length)];
+        let quad = document.querySelector(`#${roboChoice}`);
+        console.log(quad);
+        if (quad.textContent != "") {
+          roboChoice = "";
+          quad = "";
+          isRobot();
+        } else {
+        currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
+        const value = (gameBoard.getBoard().length - 1);
+        quad.textContent = gameBoard.getBoard()[`${value}`];
+        checkForWinner(currentPlayer.marker);
+        if (gameOver === false) {
+          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+          headDiv.textContent = `${currentPlayer.name}'s turn`;
+        }
+      }
+      }
+    }
   }
 
   document.addEventListener("click", (e) => {
@@ -171,7 +200,7 @@ change2.addEventListener("click", () => {
     } else if (e.target.textContent != "" || gameOver === true) {
       return;
     } else {
-      quad = e.target.id;
+      let quad = e.target.id;
       currentPlayer.addToBoard(currentPlayer.marker, quad);
       const value = (gameBoard.getBoard().length - 1);
       e.target.textContent = gameBoard.getBoard()[`${value}`];
@@ -180,6 +209,7 @@ change2.addEventListener("click", () => {
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
       }
+      isRobot();
     }
   }); 
   return {gameOver};
