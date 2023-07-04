@@ -41,6 +41,7 @@ const displayController = (function() {
     includesAll(playerOne.x, ["quad-2", "quad-5", "quad-8"]) || includesAll(playerOne.x, ["quad-3", "quad-6", "quad-9"]) ||
     includesAll(playerOne.x, ["quad-1", "quad-5", "quad-9"]) || includesAll(playerOne.x, ["quad-3", "quad-5", "quad-7"])) {
       winner = playerOne;
+      gameOver = true;
       alert(`${playerOne.name} wins the game!`);
     } 
     if (winner !== playerOne)
@@ -49,10 +50,11 @@ const displayController = (function() {
     includesAll(playerTwo.o, ["quad-2", "quad-5", "quad-8"]) || includesAll(playerTwo.o, ["quad-3", "quad-6", "quad-9"]) ||
     includesAll(playerTwo.o, ["quad-1", "quad-5", "quad-9"]) || includesAll(playerTwo.o, ["quad-3", "quad-5", "quad-7"])) {
       winner = playerTwo;
+      gameOver = true;
       alert(`${playerTwo.name} wins the game!`);
     }
 
-    else if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
+    else if (playerOne.x.length === 5) {
       alert("It's a tie!");
     }
     
@@ -69,10 +71,21 @@ const displayController = (function() {
       const value = (gameBoard.getBoard().length - 1);
       e.target.textContent = gameBoard.getBoard()[`${value}`];
       checkForWinner(currentPlayer.marker);
-      currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+      if (gameOver === false) {
+        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+        headDiv.textContent = `${currentPlayer.name}'s turn`;
+      }
     }
-  });  
+  }); 
+
   
 })();
 
+const header = document.getElementById("header");
+const headDiv = document.createElement("div");
+headDiv.classList.add("head");
+header.appendChild(headDiv);
+document.querySelector(".head").style.fontSize = "20px";
+document.querySelector(".head").style.textAlign = "center";
+headDiv.textContent = "Player One's turn";
 
