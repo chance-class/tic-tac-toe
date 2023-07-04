@@ -19,10 +19,6 @@ const player = (name, marker) => {
   return {name, marker, addToBoard, x, o};
 }
 
-const playerOne = player("Player One", "X");
-const playerTwo = player("Player Two", "O");
-let currentPlayer = playerOne;
-
 const displayController = (function() {
   const quad1 = document.getElementById("quad-1");
   const quad2 = document.getElementById("quad-2");
@@ -33,6 +29,46 @@ const displayController = (function() {
   const quad7 = document.getElementById("quad-7");
   const quad8 = document.getElementById("quad-8");
   const quad9 = document.getElementById("quad-9");
+
+  const playerOne = player("Player One", "X");
+const playerTwo = player("Player Two", "O");
+let currentPlayer = playerOne;
+
+  const header = document.getElementById("header");
+const headDiv = document.createElement("div");
+headDiv.classList.add("head");
+header.appendChild(headDiv);
+document.querySelector(".head").style.fontSize = "20px";
+document.querySelector(".head").style.textAlign = "center";
+headDiv.textContent = "Player One's turn";
+
+const change1 = document.getElementById("change-1");
+const player1 = document.querySelector("#player1");
+change1.addEventListener("click", () => {
+  playerOne.name = prompt("Please enter your name.");
+  if (playerOne.name === null) {
+    playerOne.name = "Player One";
+  }
+  player1.textContent = `${playerOne.name}`;
+  if (playerOne === currentPlayer) {
+    headDiv.textContent = `${playerOne.name}'s turn`;
+  }
+})
+
+const change2 = document.getElementById("change-2");
+const player2 = document.querySelector("#player2");
+change2.addEventListener("click", () => {
+  playerTwo.name = prompt("Please enter your name.");
+  if (playerTwo.name === null) {
+    playerTwo.name = "Player Two";
+  }
+  player2.textContent = `${playerTwo.name}`;
+  console.log(currentPlayer);
+  if (playerTwo === currentPlayer) {
+    headDiv.textContent = `${playerTwo.name}'s turn`;
+  }
+})
+
   let gameOver = false;
   const checkForWinner = () => {
     let winner = "";
@@ -150,37 +186,3 @@ const displayController = (function() {
   
 })();
 
-const header = document.getElementById("header");
-const headDiv = document.createElement("div");
-headDiv.classList.add("head");
-header.appendChild(headDiv);
-document.querySelector(".head").style.fontSize = "20px";
-document.querySelector(".head").style.textAlign = "center";
-headDiv.textContent = "Player One's turn";
-
-const change1 = document.getElementById("change-1");
-const player1 = document.querySelector("#player1");
-change1.addEventListener("click", () => {
-  playerOne.name = prompt("Please enter your name.");
-  if (playerOne.name === null) {
-    playerOne.name = "Player One";
-  }
-  player1.textContent = `${playerOne.name}`;
-  if (playerOne === currentPlayer) {
-    headDiv.textContent = `${playerOne.name}'s turn`;
-  }
-})
-
-const change2 = document.getElementById("change-2");
-const player2 = document.querySelector("#player2");
-change2.addEventListener("click", () => {
-  playerTwo.name = prompt("Please enter your name.");
-  if (playerTwo.name === null) {
-    playerTwo.name = "Player Two";
-  }
-  player2.textContent = `${playerTwo.name}`;
-  console.log(currentPlayer);
-  if (playerTwo === currentPlayer) {
-    headDiv.textContent = `${playerTwo.name}'s turn`;
-  }
-})
