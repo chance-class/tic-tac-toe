@@ -1,7 +1,8 @@
 const gameBoard = (function() {
-  const board = ["", "", "", "", "", "", "", "", ""];
+  let board = [];
   const getBoard = () => board;
-  return {getBoard};
+  const clearBoard = () => board.splice(0, 9);
+  return {getBoard, clearBoard};
 })();
 
 const player = (name, marker) => {
@@ -23,15 +24,15 @@ const playerOne = player("Player One", "X");
 const playerTwo = player("Player Two", "O");
 
 const displayController = (function() {
-//  const quad1 = document.getElementById("quad-1");
-//  const quad2 = document.getElementById("quad-2");
-//  const quad3 = document.getElementById("quad-3");
-//  const quad4 = document.getElementById("quad-4");
-//  const quad5 = document.getElementById("quad-5");
-//  const quad6 = document.getElementById("quad-6");
-//  const quad7 = document.getElementById("quad-7");
-//  const quad8 = document.getElementById("quad-8");
-//  const quad9 = document.getElementById("quad-9");
+  const quad1 = document.getElementById("quad-1");
+  const quad2 = document.getElementById("quad-2");
+  const quad3 = document.getElementById("quad-3");
+  const quad4 = document.getElementById("quad-4");
+  const quad5 = document.getElementById("quad-5");
+  const quad6 = document.getElementById("quad-6");
+  const quad7 = document.getElementById("quad-7");
+  const quad8 = document.getElementById("quad-8");
+  const quad9 = document.getElementById("quad-9");
   let gameOver = false;
   const checkForWinner = () => {
     let winner = "";
@@ -45,10 +46,26 @@ const displayController = (function() {
       headDiv.textContent = `${playerOne.name} wins the game!`;
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
-      document.querySelector(".refresh").style.marginLeft = "15px";
+      refresh.style.marginLeft = "15px";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
-
+        refresh.remove();
+        quad1.textContent = "";
+        quad2.textContent = "";
+        quad3.textContent = "";
+        quad4.textContent = "";
+        quad5.textContent = "";
+        quad6.textContent = "";
+        quad7.textContent = "";
+        quad8.textContent = "";
+        quad9.textContent = "";
+        gameOver = false;
+        gameBoard.clearBoard();
+        playerOne.x.splice(0, 5);
+        playerTwo.o.splice(0, 5);
+        console.log(gameBoard.getBoard());
+        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+        headDiv.textContent = `${currentPlayer.name}'s turn`;
       })
     }
     if (winner !== playerOne)
@@ -61,14 +78,29 @@ const displayController = (function() {
       headDiv.textContent = `${playerTwo.name} wins the game!`;
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
-      document.querySelector(".refresh").style.marginLeft = "15px";
+      refresh.style.marginLeft = "15px";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
-        
+        refresh.remove();
+        quad1.textContent = "";
+        quad2.textContent = "";
+        quad3.textContent = "";
+        quad4.textContent = "";
+        quad5.textContent = "";
+        quad6.textContent = "";
+        quad7.textContent = "";
+        quad8.textContent = "";
+        quad9.textContent = "";
+        gameOver = false;
+        playerOne.x.splice(0, 5);
+        playerTwo.o.splice(0, 5);
+        gameBoard.clearBoard();
+        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+        headDiv.textContent = `${currentPlayer.name}'s turn`;
       })
     }
 
-    else if (playerOne.x.length === 5) {
+    else if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
       alert("It's a tie!");
     }
     
