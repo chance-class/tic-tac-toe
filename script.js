@@ -45,6 +45,7 @@ const displayController = (function() {
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
+      refresh.style.height = "30px";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -75,6 +76,7 @@ const displayController = (function() {
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
+      refresh.style.height = "30px";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -102,6 +104,7 @@ const displayController = (function() {
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
+      refresh.style.height = "30px";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
