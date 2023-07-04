@@ -69,6 +69,20 @@ change2.addEventListener("click", () => {
   }
 })
 
+const robocop = document.getElementById("robocop");
+robocop.addEventListener("click", () => {
+  if (robocop.textContent === "Play Computer") {
+    playerTwo.name = "Robocop";
+    player2.textContent = "Robocop";
+    isRobot();
+    robocop.textContent = "Play User";
+  } else {
+    playerTwo.name = "Player Two";
+    player2.textContent = "Player Two";
+    robocop.textContent = "Play Computer";
+  }
+})
+
   let gameOver = false;
   const checkForWinner = () => {
     let winner = "";
