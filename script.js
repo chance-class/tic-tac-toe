@@ -21,6 +21,7 @@ const player = (name, marker) => {
 
 const playerOne = player("Player One", "X");
 const playerTwo = player("Player Two", "O");
+let currentPlayer = playerOne;
 
 const displayController = (function() {
   const quad1 = document.getElementById("quad-1");
@@ -128,8 +129,6 @@ const displayController = (function() {
     
   }
 
-
-  let currentPlayer = playerOne;
   document.addEventListener("click", (e) => {
     if (!(e.target.closest(".quadrant"))) {
       return;
@@ -167,12 +166,21 @@ change1.addEventListener("click", () => {
     playerOne.name = "Player One";
   }
   player1.textContent = `${playerOne.name}`;
-  headDiv.textContent = `${playerOne.name}'s turn`;
+  if (playerOne === currentPlayer) {
+    headDiv.textContent = `${playerOne.name}'s turn`;
+  }
 })
 
 const change2 = document.getElementById("change-2");
 const player2 = document.querySelector("#player2");
 change2.addEventListener("click", () => {
   playerTwo.name = prompt("Please enter your name.");
+  if (playerTwo.name === null) {
+    playerTwo.name = "Player Two";
+  }
   player2.textContent = `${playerTwo.name}`;
+  console.log(currentPlayer);
+  if (playerTwo === currentPlayer) {
+    headDiv.textContent = `${playerTwo.name}'s turn`;
+  }
 })
