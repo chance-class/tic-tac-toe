@@ -190,33 +190,9 @@ robocop.addEventListener("click", () => {
   const isRobot = () => {
     if (playerTwo.name === "Robocop") {
       if (playerTwo === currentPlayer) {
-        if (quad1.textContent === "X" && quad2.textContent === "X" && quad3.textContent === "" || 
-        quad6.textContent === "X" && quad9.textContent === "X" && quad3.textContent === "" || 
-        quad5.textContent === "X" && quad7.textContent === "X" && quad3.textContent === "") {
-          roboChoice = "quad-3";
-        } else if (quad2.textContent === "X" && quad3.textContent === "X" && quad1.textContent === "" || 
-        quad4.textContent === "X" && quad7.textContent === "X" && quad1.textContent === "" || 
-        quad9.textContent === "X" && quad5.textContent === "X" && quad1.textContent === "") {
-          roboChoice = "quad-1";
-        } else if (quad1.textContent === "X" && quad4.textContent === "X" && quad7.textContent === "" || 
-        quad8.textContent === "X" && quad9.textContent === "X" && quad7.textContent === "" || 
-        quad3.textContent === "X" && quad5.textContent === "X" && quad7.textContent === "") {
-          roboChoice = "quad-7";
-        } else if (quad3.textContent === "X" && quad6.textContent === "X" && quad9.textContent === "" || 
-        quad7.textContent === "X" && quad8.textContent === "X" && quad9.textContent === "" || 
-        quad1.textContent === "X" && quad5.textContent === "X" && quad9.textContent === "") {
-          roboChoice = "quad-9";
-        } else if (quad1.textContent === "X" && quad9.textContent === "X" && quad5.textContent === "" || 
-        quad3.textContent === "X" && quad7.textContent === "X" && quad5.textContent === "" || 
-        quad4.textContent === "X" && quad6.textContent === "X" && quad5.textContent === "" || 
-        quad2.textContent === "X" && quad8.textContent === "X" && quad5.textContent === "") {
-          roboChoice = "quad-5";
-        } else {
         const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6", 
         "quad-7", "quad-8", "quad-9"];
         roboChoice = choices[Math.floor(Math.random() * choices.length)];
-        }
-
         let quad = document.querySelector(`#${roboChoice}`);
         if (quad.textContent != "") {
           roboChoice = "";
