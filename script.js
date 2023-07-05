@@ -48,7 +48,7 @@ const displayController = (function () {
     playerOne.name = prompt("Please enter your name.");
     if (playerOne.name === null) {
       playerOne.name = "Player One";
-    } else if (playerOne.name === "Robocop" || playerOne.name === "Dr. Evil") {
+    } else if (playerOne.name === "Robocop" || playerOne.name === "Terminator") {
       alert("Please choose a different name.");
       playerOne.name = "Player One";
     }
@@ -64,7 +64,7 @@ const displayController = (function () {
     playerTwo.name = prompt("Please enter your name.");
     if (playerTwo.name === null) {
       playerTwo.name = "Player Two";
-    } else if (playerTwo.name === "Robocop" || playerTwo.name === "Dr. Evil") {
+    } else if (playerTwo.name === "Robocop" || playerTwo.name === "Terminator") {
       alert("Please choose a different name.");
       playerTwo.name = "Player Two";
     }
@@ -88,24 +88,23 @@ const displayController = (function () {
     }
   })
 
-  const drEvil = document.getElementById("drEvil");
-  drEvil.addEventListener("click", () => {
-    if (drEvil.textContent === "Play Evil Computer") {
-      playerTwo.name = "Dr. Evil";
-      player2.textContent = "Dr. Evil";
+  const terminator = document.getElementById("terminator");
+  terminator.addEventListener("click", () => {
+    if (terminator.textContent === "Play Evil Computer") {
+      playerTwo.name = "Terminator";
+      player2.textContent = "Terminator";
       isEvilRobot();
-      drEvil.textContent = "Play User";
+      terminator.textContent = "Play User";
     } else {
       playerTwo.name = "Player Two";
       player2.textContent = "Player Two";
-      drEvil.textContent = "Play Evil Computer";
+      terminator.textContent = "Play Evil Computer";
     }
   })
 
 
   let gameOver = false;
   const checkForWinner = () => {
-    let winner = "";
     const includesAll = (arr, values) => values.every(v => arr.includes(v));
     if (includesAll(playerOne.x, ["quad-1", "quad-2", "quad-3"]) || includesAll(playerOne.x, ["quad-4", "quad-5", "quad-6"]) ||
       includesAll(playerOne.x, ["quad-7", "quad-8", "quad-9"]) || includesAll(playerOne.x, ["quad-1", "quad-4", "quad-7"]) ||
@@ -231,7 +230,7 @@ const displayController = (function () {
   }
 
   const isEvilRobot = () => {
-    if (playerTwo.name === "Dr. Evil") {
+    if (playerTwo.name === "Terminator") {
       if (playerTwo === currentPlayer) {
         const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6",
           "quad-7", "quad-8", "quad-9"];
