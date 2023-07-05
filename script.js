@@ -63,7 +63,6 @@ change2.addEventListener("click", () => {
     playerTwo.name = "Player Two";
   }
   player2.textContent = `${playerTwo.name}`;
-  console.log(currentPlayer);
   if (playerTwo === currentPlayer) {
     headDiv.textContent = `${playerTwo.name}'s turn`;
   }
@@ -184,12 +183,11 @@ robocop.addEventListener("click", () => {
   
   const isRobot = () => {
     if (playerTwo.name === "Robocop") {
-      if (currentPlayer === playerTwo) {
+      if (playerTwo === currentPlayer) {
         const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6", 
         "quad-7", "quad-8", "quad-9"];
-        let roboChoice = choices[Math.floor(Math.random() * choices.length)];
+        roboChoice = choices[Math.floor(Math.random() * choices.length)];
         let quad = document.querySelector(`#${roboChoice}`);
-        console.log(quad);
         if (quad.textContent != "") {
           roboChoice = "";
           quad = "";
@@ -204,9 +202,11 @@ robocop.addEventListener("click", () => {
           headDiv.textContent = `${currentPlayer.name}'s turn`;
         }
       }
-      }
+      
+    }
     }
   }
+  
 
   document.addEventListener("click", (e) => {
     if (!(e.target.closest(".quadrant"))) {
