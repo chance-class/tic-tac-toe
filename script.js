@@ -199,19 +199,88 @@ robocop.addEventListener("click", () => {
           quad = "";
           isRobot();
         } else {
-        currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
-        const value = (gameBoard.getBoard().length - 1);
-        quad.textContent = gameBoard.getBoard()[`${value}`];
-        checkForWinner(currentPlayer.marker);
-        if (gameOver === false) {
-          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-          headDiv.textContent = `${currentPlayer.name}'s turn`;
+          currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
+          const value = (gameBoard.getBoard().length - 1);
+          quad.textContent = gameBoard.getBoard()[`${value}`];
+          checkForWinner(currentPlayer.marker);
+          if (gameOver === false) {
+            currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+            headDiv.textContent = `${currentPlayer.name}'s turn`;
+          }
         }
       }
-      
-    }
     }
   }
+
+  const isEvilRobot = () => {
+    if (playerTwo.name === "Dr. Evil") {
+      if (playerTwo === currentPlayer) {
+        const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6", 
+        "quad-7", "quad-8", "quad-9"];
+        if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "" || 
+        quad1.textContent === "" && quad3.textContent === "X" && quad7.textContent === "" && quad9.textContent === "" || 
+        quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "X" && quad9.textContent === "" || 
+        quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "X") {
+          const moves = ["quad-1", "quad-3", "quad-7", "quad-9", "quad-5"];
+          roboChoice = moves[Math.floor(Math.random() * moves.length)];
+        }
+        else if (quad1.textContent === "X" && quad2.textContent === "X" && quad3.textContent === "" || 
+        quad6.textContent === "X" && quad9.textContent === "X" && quad3.textContent === "" || 
+        quad5.textContent === "X" && quad7.textContent === "X" && quad3.textContent === "") {
+          roboChoice = "quad-3";
+        } else if (quad2.textContent === "X" && quad3.textContent === "X" && quad1.textContent === "" || 
+        quad4.textContent === "X" && quad7.textContent === "X" && quad1.textContent === "" || 
+        quad9.textContent === "X" && quad5.textContent === "X" && quad1.textContent === "") {
+          roboChoice = "quad-1";
+        } else if (quad1.textContent === "X" && quad4.textContent === "X" && quad7.textContent === "" || 
+        quad8.textContent === "X" && quad9.textContent === "X" && quad7.textContent === "" || 
+        quad3.textContent === "X" && quad5.textContent === "X" && quad7.textContent === "") {
+          roboChoice = "quad-7";
+        } else if (quad3.textContent === "X" && quad6.textContent === "X" && quad9.textContent === "" || 
+        quad7.textContent === "X" && quad8.textContent === "X" && quad9.textContent === "" || 
+        quad1.textContent === "X" && quad5.textContent === "X" && quad9.textContent === "") {
+          roboChoice = "quad-9";
+        } else if (quad1.textContent === "X" && quad9.textContent === "X" && quad5.textContent === "" || 
+        quad3.textContent === "X" && quad7.textContent === "X" && quad5.textContent === "" || 
+        quad4.textContent === "X" && quad6.textContent === "X" && quad5.textContent === "" || 
+        quad2.textContent === "X" && quad8.textContent === "X" && quad5.textContent === "") {
+          roboChoice = "quad-5";
+        } else if (quad1.textContent === "X" && quad3.textContent === "X" && quad2.textContent === "" || 
+        quad5.textContent === "X" && quad8.textContent === "X" && quad2.textContent === "") {
+          roboChoice = "quad-2";
+        } else if (quad3.textContent === "X" && quad9.textContent === "X" && quad6.textContent === "" || 
+        quad4.textContent === "X" && quad5.textContent === "X" && quad6.textContent === "") {
+          roboChoice = "quad-6";
+        } else if (quad1.textContent === "X" && quad7.textContent === "X" & quad4.textContent === "" || 
+        quad5.textContent === "X" && quad6.textContent === "X" && quad4.textContent === "") {
+          roboChoice = "quad-4";
+        } else if (quad7.textContent === "X" && quad9.textContent === "X" && quad8.textContent === "" || 
+        quad2.textContent === "X" && quad5.textContent === "X" && quad8.textContent === "") {
+          roboChoice = "quad-8";
+        } else {
+          roboChoice = choices[Math.floor(Math.random() * choices.length)];
+        }
+        
+        let quad = document.querySelector(`#${roboChoice}`);
+        if (quad.textContent != "") {
+          roboChoice = "";
+          quad = "";
+          isRobot();
+        } else {
+          currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
+          const value = (gameBoard.getBoard().length - 1);
+          quad.textContent = gameBoard.getBoard()[`${value}`];
+          checkForWinner(currentPlayer.marker);
+          if (gameOver === false) {
+            currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+            headDiv.textContent = `${currentPlayer.name}'s turn`;
+          }
+        }
+      }
+    }
+  }
+  
+  
   
 
   document.addEventListener("click", (e) => {
