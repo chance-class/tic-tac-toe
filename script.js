@@ -48,6 +48,9 @@ change1.addEventListener("click", () => {
   playerOne.name = prompt("Please enter your name.");
   if (playerOne.name === null) {
     playerOne.name = "Player One";
+  } else if (playerOne.name === "Robocop") {
+    alert("Please choose a different name.");
+    playerOne.name = "Player One";
   }
   player1.textContent = `${playerOne.name}`;
   if (playerOne === currentPlayer) {
@@ -60,6 +63,9 @@ const player2 = document.querySelector("#player2");
 change2.addEventListener("click", () => {
   playerTwo.name = prompt("Please enter your name.");
   if (playerTwo.name === null) {
+    playerTwo.name = "Player Two";
+  } else if (playerTwo.name === "Robocop") {
+    alert("Please choose a different name.");
     playerTwo.name = "Player Two";
   }
   player2.textContent = `${playerTwo.name}`;
@@ -210,7 +216,7 @@ robocop.addEventListener("click", () => {
         "quad-7", "quad-8", "quad-9"];
         roboChoice = choices[Math.floor(Math.random() * choices.length)];
         }
-        
+
         let quad = document.querySelector(`#${roboChoice}`);
         if (quad.textContent != "") {
           roboChoice = "";
