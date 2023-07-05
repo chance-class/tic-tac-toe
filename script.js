@@ -263,7 +263,7 @@ const displayController = (function () {
         } else if (quad3.textContent === "O" && quad9.textContent === "O" && quad6.textContent === "" || 
         quad4.textContent === "O" && quad5.textContent === "O" && quad6.textContent === "") {
           roboChoice = "quad-6";
-        } else if (quad1.textContent === "O" && quad7.textContent === "O" && quad4.textContent === "" | 
+        } else if (quad1.textContent === "O" && quad7.textContent === "O" && quad4.textContent === "" || 
         quad5.textContent === "O" && quad6.textContent === "O" && quad4.textContent === "") {
           roboChoice = "quad-4";
         } else if (quad7.textContent === "O" && quad9.textContent === "O" && quad8.textContent === "" || 
@@ -307,7 +307,7 @@ const displayController = (function () {
         } else if (quad3.textContent === "X" && quad9.textContent === "X" && quad6.textContent === "" || 
         quad4.textContent === "X" && quad5.textContent === "X" && quad6.textContent === "") {
           roboChoice = "quad-6";
-        } else if (quad1.textContent === "X" && quad7.textContent === "X" && quad4.textContent === "" | 
+        } else if (quad1.textContent === "X" && quad7.textContent === "X" && quad4.textContent === "" ||  
         quad5.textContent === "X" && quad6.textContent === "X" && quad4.textContent === "") {
           roboChoice = "quad-4";
         } else if (quad7.textContent === "X" && quad9.textContent === "X" && quad8.textContent === "" || 
@@ -317,7 +317,6 @@ const displayController = (function () {
           roboChoice = choices[Math.floor(Math.random() * choices.length)];
         }
 
-        console.log(roboChoice);
         let quad = document.querySelector(`#${roboChoice}`);
         if (quad.textContent != "") {
           roboChoice = "";
