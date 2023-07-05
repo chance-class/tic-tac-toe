@@ -1,3 +1,9 @@
+* {
+  --webkit-appearance: none;
+  --moz-appearance: none;
+  appearance: none;
+}
+
 body {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -27,6 +33,13 @@ h1 {
 #change-2, 
 #robocop {
   height: 40px;
+  width: 150px;
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+#drEvil {
+  height: 60px;
   width: 150px;
   margin: 0 auto;
   font-size: 20px;

@@ -48,7 +48,7 @@ change1.addEventListener("click", () => {
   playerOne.name = prompt("Please enter your name.");
   if (playerOne.name === null) {
     playerOne.name = "Player One";
-  } else if (playerOne.name === "Robocop") {
+  } else if (playerOne.name === "Robocop" || playerOne.name === "Dr. Evil") {
     alert("Please choose a different name.");
     playerOne.name = "Player One";
   }
@@ -64,7 +64,7 @@ change2.addEventListener("click", () => {
   playerTwo.name = prompt("Please enter your name.");
   if (playerTwo.name === null) {
     playerTwo.name = "Player Two";
-  } else if (playerTwo.name === "Robocop") {
+  } else if (playerTwo.name === "Robocop" || playerTwo.name === "Dr. Evil") {
     alert("Please choose a different name.");
     playerTwo.name = "Player Two";
   }
@@ -87,6 +87,21 @@ robocop.addEventListener("click", () => {
     robocop.textContent = "Play Computer";
   }
 })
+
+const drEvil = document.getElementById("drEvil");
+drEvil.addEventListener("click", () => {
+  if (drEvil.textContent === "Play Evil Computer") {
+    playerTwo.name = "Dr. Evil";
+    player2.textContent = "Dr. Evil";
+    isEvilRobot();
+    drEvil.textContent = "Play User";
+  } else {
+    playerTwo.name = "Player Two";
+    player2.textContent = "Player Two";
+    drEvil.textContent = "Play Evil Computer";
+  }
+})
+
 
   let gameOver = false;
   const checkForWinner = () => {
@@ -121,6 +136,7 @@ robocop.addEventListener("click", () => {
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
         isRobot();
+        isEvilRobot();
       })
     }
 
@@ -153,6 +169,7 @@ robocop.addEventListener("click", () => {
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
         isRobot();
+        isEvilRobot();
       })
     }
     
@@ -182,6 +199,7 @@ robocop.addEventListener("click", () => {
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;
         isRobot();
+        isEvilRobot();
       })
     }
     
@@ -265,7 +283,7 @@ robocop.addEventListener("click", () => {
         if (quad.textContent != "") {
           roboChoice = "";
           quad = "";
-          isRobot();
+          isEvilRobot();
         } else {
           currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
           const value = (gameBoard.getBoard().length - 1);
@@ -299,6 +317,7 @@ robocop.addEventListener("click", () => {
         headDiv.textContent = `${currentPlayer.name}'s turn`;
       }
       isRobot();
+      isEvilRobot();
     }
   }); 
   return {gameOver};
