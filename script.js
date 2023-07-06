@@ -127,6 +127,7 @@ const displayController = (function () {
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
       refresh.style.height = "30px";
+      refresh.style.backgroundColor = "#e5d1b8";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -160,6 +161,7 @@ const displayController = (function () {
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
       refresh.style.height = "30px";
+      refresh.style.backgroundColor = "#e5d1b8";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -190,6 +192,7 @@ const displayController = (function () {
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
       refresh.style.height = "30px";
+      refresh.style.backgroundColor = "#e5d1b8";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -281,7 +284,7 @@ const displayController = (function () {
           roboChoice = "quad-8";
 
         } else if (quad5.textContent === "X" && quad1.textContent === "" && quad3.textContent === "" && 
-        quad7.textContent == "" && quad9.textContent === "") {
+        quad7.textContent === "" && quad9.textContent === "") {
           const moves = ["quad-1", "quad-3", "quad-7", "quad-9"];
           roboChoice = moves[Math.floor(Math.random() * moves.length)];
         } else if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "" || 
