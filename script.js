@@ -69,6 +69,11 @@ const displayController = (function () {
       playerTwo.name = "Player Two";
     }
     player2.textContent = `${playerTwo.name}`;
+    if (robocop.textContent === "Play User") {
+      robocop.textContent = "Play Computer";
+    } else if (terminator.textContent === "Play User") {
+      terminator.textContent = "Play Evil Computer";
+    }
     if (playerTwo === currentPlayer) {
       headDiv.textContent = `${playerTwo.name}'s turn`;
     }
@@ -81,6 +86,9 @@ const displayController = (function () {
       player2.textContent = "Robocop";
       isRobot();
       robocop.textContent = "Play User";
+      if (terminator.textContent === "Play User") {
+        terminator.textContent = "Play Evil Computer";
+      }
     } else {
       playerTwo.name = "Player Two";
       player2.textContent = "Player Two";
@@ -95,6 +103,9 @@ const displayController = (function () {
       player2.textContent = "Terminator";
       isEvilRobot();
       terminator.textContent = "Play User";
+      if (robocop.textContent === "Play User") {
+        robocop.textContent = "Play Computer";
+      }
     } else {
       playerTwo.name = "Player Two";
       player2.textContent = "Player Two";
