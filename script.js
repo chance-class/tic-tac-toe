@@ -113,6 +113,7 @@ const displayController = (function () {
     }
   })
 
+  const quadrants = document.querySelectorAll(".quadrant");
 
   let gameOver = false;
   const checkForWinner = () => {
@@ -129,15 +130,9 @@ const displayController = (function () {
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
-        quad1.textContent = "";
-        quad2.textContent = "";
-        quad3.textContent = "";
-        quad4.textContent = "";
-        quad5.textContent = "";
-        quad6.textContent = "";
-        quad7.textContent = "";
-        quad8.textContent = "";
-        quad9.textContent = "";
+        for (quadrant of quadrants) {
+          quadrant.textContent = "";
+        }
         gameOver = false;
         gameBoard.clearBoard();
         playerOne.x.splice(0, 5);
@@ -161,15 +156,9 @@ const displayController = (function () {
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
-        quad1.textContent = "";
-        quad2.textContent = "";
-        quad3.textContent = "";
-        quad4.textContent = "";
-        quad5.textContent = "";
-        quad6.textContent = "";
-        quad7.textContent = "";
-        quad8.textContent = "";
-        quad9.textContent = "";
+        for (quadrant of quadrants) {
+          quadrant.textContent = "";
+        }
         gameOver = false;
         playerOne.x.splice(0, 5);
         playerTwo.o.splice(0, 5);
@@ -190,15 +179,9 @@ const displayController = (function () {
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
-        quad1.textContent = "";
-        quad2.textContent = "";
-        quad3.textContent = "";
-        quad4.textContent = "";
-        quad5.textContent = "";
-        quad6.textContent = "";
-        quad7.textContent = "";
-        quad8.textContent = "";
-        quad9.textContent = "";
+        for (quadrant of quadrants) {
+          quadrant.textContent = "";
+        }
         gameOver = false;
         playerOne.x.splice(0, 5);
         playerTwo.o.splice(0, 5);
