@@ -4,6 +4,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   justify-items: center;
+  font-family: "Noto Sans Display", sans-serif;
 }
 
 header {
