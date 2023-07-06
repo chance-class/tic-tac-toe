@@ -314,12 +314,22 @@ const displayController = (function () {
         } else if (quad7.textContent === "X" && quad9.textContent === "X" && quad8.textContent === "" || 
         quad2.textContent === "X" && quad5.textContent === "X" && quad8.textContent === "") {
           roboChoice = "quad-8";
-        } else if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "" || 
-          quad1.textContent === "" && quad3.textContent === "X" && quad7.textContent === "" && quad9.textContent === "" || 
-          quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "X" && quad9.textContent === "" || 
-          quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "X") {
-            const moves = ["quad-1", "quad-3", "quad-7", "quad-9", "quad-5"];
-            roboChoice = moves[Math.floor(Math.random() * moves.length)];
+        } else if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && 
+        quad9.textContent === "" && quad5.textContent === "") {
+          const moves = ["quad-5", "quad-9"];
+          roboChoice = moves[Math.floor(Math.random() * moves.length)];
+        } else if (quad1.textContent === "" && quad3.textContent === "X" && quad7.textContent === "" && 
+        quad9.textContent === "" && quad5.textContent === "") {
+          const moves = ["quad-5", "quad-7"];
+          roboChoice = moves[Math.floor(Math.random() * moves.length)];
+        } else if (quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "X" && 
+        quad9.textContent === "" && quad5.textContent === "") {
+          const moves = ["quad-5", "quad-3"];
+          roboChoice = moves[Math.floor(Math.random() * moves.length)];
+        } else if (quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "" && 
+        quad9.textContent === "X" && quad5.textCOntent === "") {
+          const moves = ["quad-5", "quad-1"];
+          roboChoice = moves[Math.floor(Math.random() * moves.length)];
         } else {
           roboChoice = choices[Math.floor(Math.random() * choices.length)];
         }
