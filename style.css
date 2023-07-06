@@ -1,8 +1,4 @@
-* {
-  --webkit-appearance: none;
-  --moz-appearance: none;
-  appearance: none;
-}
+
 
 body {
   display: grid;
@@ -27,6 +23,10 @@ h1 {
   display: grid;
   grid-auto-rows: 55px;
   justify-content: center;
+}
+
+button {
+  color: black;
 }
 
 #change-1, 
