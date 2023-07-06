@@ -88,6 +88,9 @@ button:hover {
 #player2 {
   font-size: 35px;
   color: #0d9488;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
