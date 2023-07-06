@@ -126,8 +126,10 @@ const displayController = (function () {
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
       refresh.style.marginLeft = "15px";
-      refresh.style.height = "30px";
+      refresh.style.height = "40px";
       refresh.style.backgroundColor = "#e5d1b8";
+      refresh.style.width = "100px";
+      refresh.style.fontSize = "16px";
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -287,12 +289,6 @@ const displayController = (function () {
         quad7.textContent === "" && quad9.textContent === "") {
           const moves = ["quad-1", "quad-3", "quad-7", "quad-9"];
           roboChoice = moves[Math.floor(Math.random() * moves.length)];
-        } else if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "" || 
-        quad1.textContent === "" && quad3.textContent === "X" && quad7.textContent === "" && quad9.textContent === "" || 
-        quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "X" && quad9.textContent === "" || 
-        quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "X") {
-          const moves = ["quad-1", "quad-3", "quad-7", "quad-9", "quad-5"];
-          roboChoice = moves[Math.floor(Math.random() * moves.length)];
         } else if (quad1.textContent === "X" && quad2.textContent === "X" && quad3.textContent === "" || 
         quad6.textContent === "X" && quad9.textContent === "X" && quad3.textContent === "" || 
         quad5.textContent === "X" && quad7.textContent === "X" && quad3.textContent === "") {
@@ -326,6 +322,12 @@ const displayController = (function () {
         } else if (quad7.textContent === "X" && quad9.textContent === "X" && quad8.textContent === "" || 
         quad2.textContent === "X" && quad5.textContent === "X" && quad8.textContent === "") {
           roboChoice = "quad-8";
+        } else if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "" || 
+          quad1.textContent === "" && quad3.textContent === "X" && quad7.textContent === "" && quad9.textContent === "" || 
+          quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "X" && quad9.textContent === "" || 
+          quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "" && quad9.textContent === "X") {
+            const moves = ["quad-1", "quad-3", "quad-7", "quad-9", "quad-5"];
+            roboChoice = moves[Math.floor(Math.random() * moves.length)];
         } else {
           roboChoice = choices[Math.floor(Math.random() * choices.length)];
         }
