@@ -5,6 +5,8 @@ body {
   grid-template-columns: 1fr 2fr 1fr;
   justify-items: center;
   font-family: "Noto Sans Display", sans-serif;
+  background-color: #f0edea;
+  color: #282129;
 }
 
 header {
@@ -16,6 +18,7 @@ h1 {
   font-weight: 200;
   margin: 10px;
   font-family: "Caprasimo", cursive, sans-serif;
+  color: #282129;
 }
 
 
@@ -41,6 +44,19 @@ button {
   font-size: 20px;
 }
 
+#change-1, 
+#change-2 {
+  background-color: #e5d1b8;
+}
+
+#robocop {
+  background-color: #c2956e;
+}
+
+#terminator {
+  background-color: #dd8e58;
+}
+
 .p1, 
 .p2 {
   height: 60px;
@@ -49,6 +65,7 @@ button {
 #player1, 
 #player2 {
   font-size: 35px;
+  color: #0d9488;
 }
 
 .container {
@@ -67,20 +84,21 @@ button {
   align-items: center;
   justify-content: center;
   font-family: "Lexend Deca", sans-serif;
+  color: #0d9488;
 }
 
 #quad-5 {
-  border: 7px solid black;
+  border: 7px solid #282129;
 }
 
 #quad-2, 
 #quad-8 {
-  border-right: 7px solid black;
-  border-left: 7px solid black;
+  border-right: 7px solid #282129;
+  border-left: 7px solid #282129;
 }
 
 #quad-4, 
 #quad-6 {
-  border-top: 7px solid black;
-  border-bottom: 7px solid black;
+  border-top: 7px solid #282129;;
+  border-bottom: 7px solid #282129;
 }
