@@ -6,7 +6,7 @@ body {
   justify-items: center;
   font-family: "Noto Sans Display", sans-serif;
   background-color: #f0edea;
-  color: #282129;
+  color: #042f2e;
 }
 
 header {
@@ -26,7 +26,7 @@ h1 {
   font-weight: 200;
   margin: 10px;
   font-family: "Caprasimo", cursive, sans-serif;
-  color: #282129;
+  color: #042f2e;
 }
 
 
@@ -38,21 +38,21 @@ h1 {
 }
 
 button {
-  color: black;
+  color: #042f2e;
   border: none;
   border-radius: 5px;
 }
 
 button:hover {
-  border: 3px solid #282129;
+  border: 3px solid #042f2e;
 }
 
 .refresh {
   margin-left: 15px;
-  height: 60px;
+  height: 50px;
   background-color: #e5d1b8;
   width: 120px;
-  font-size:16px;
+  font-size:18px;
 }
 
 #change-1, 
@@ -110,17 +110,17 @@ button:hover {
 }
 
 #quad-5 {
-  border: 7px solid #282129;
+  border: 7px solid #042f2e;
 }
 
 #quad-2, 
 #quad-8 {
-  border-right: 7px solid #282129;
-  border-left: 7px solid #282129;
+  border-right: 7px solid #042f2e;
+  border-left: 7px solid #042f2e;
 }
 
 #quad-4, 
 #quad-6 {
-  border-top: 7px solid #282129;;
-  border-bottom: 7px solid #282129;
+  border-top: 7px solid #042f2e;;
+  border-bottom: 7px solid #042f2e;
 }
