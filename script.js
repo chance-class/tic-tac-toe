@@ -125,11 +125,7 @@ const displayController = (function () {
       headDiv.textContent = `${playerOne.name} wins the game!`;
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
-      refresh.style.marginLeft = "15px";
-      refresh.style.height = "40px";
-      refresh.style.backgroundColor = "#e5d1b8";
-      refresh.style.width = "100px";
-      refresh.style.fontSize = "16px";
+      refresh.classList.add("refresh");
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -161,11 +157,7 @@ const displayController = (function () {
       headDiv.textContent = `${playerTwo.name} wins the game!`;
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
-      refresh.style.marginLeft = "15px";
-      refresh.style.height = "40px";
-      refresh.style.backgroundColor = "#e5d1b8";
-      refresh.style.width = "100px";
-      refresh.style.fontSize = "16px";
+      refresh.classList.add("refresh");
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
@@ -194,11 +186,7 @@ const displayController = (function () {
       gameOver = true;
       const refresh = document.createElement("button");
       headDiv.appendChild(refresh);
-      refresh.style.marginLeft = "15px";
-      refresh.style.height = "40px";
-      refresh.style.backgroundColor = "#e5d1b8";
-      refresh.style.width = "100px";
-      refresh.style.fontSize = "16px";
+      refresh.classList.add("refresh");
       refresh.textContent = "Play Again";
       refresh.addEventListener("click", () => {
         refresh.remove();
