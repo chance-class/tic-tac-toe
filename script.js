@@ -23,15 +23,15 @@ const player = (name, marker) => {
 }
 
 const displayController = (function () {
-   const quad1 = document.getElementById("quad-1");
-   const quad2 = document.getElementById("quad-2");
-   const quad3 = document.getElementById("quad-3");
-   const quad4 = document.getElementById("quad-4");
-   const quad5 = document.getElementById("quad-5");
-   const quad6 = document.getElementById("quad-6");
-   const quad7 = document.getElementById("quad-7");
-   const quad8 = document.getElementById("quad-8");
-   const quad9 = document.getElementById("quad-9");
+  //  const quad1 = document.getElementById("quad-1");
+  //  const quad2 = document.getElementById("quad-2");
+  //  const quad3 = document.getElementById("quad-3");
+  //  const quad4 = document.getElementById("quad-4");
+  //  const quad5 = document.getElementById("quad-5");
+  //  const quad6 = document.getElementById("quad-6");
+  //  const quad7 = document.getElementById("quad-7");
+  //  const quad8 = document.getElementById("quad-8");
+  //  const quad9 = document.getElementById("quad-9");
 
   function emptyIndexes(board){
     return  board.filter(s => s != "O" && s != "X");
@@ -157,63 +157,7 @@ const displayController = (function () {
         isRobot();
         isEvilRobot();
       })
-   }
-  }
-
-  const checkForWinner = () => {
-    if (includesAll(playerOne.x, ["quad-1", "quad-2", "quad-3"]) || includesAll(playerOne.x, ["quad-4", "quad-5", "quad-6"]) ||
-      includesAll(playerOne.x, ["quad-7", "quad-8", "quad-9"]) || includesAll(playerOne.x, ["quad-1", "quad-4", "quad-7"]) ||
-      includesAll(playerOne.x, ["quad-2", "quad-5", "quad-8"]) || includesAll(playerOne.x, ["quad-3", "quad-6", "quad-9"]) ||
-      includesAll(playerOne.x, ["quad-1", "quad-5", "quad-9"]) || includesAll(playerOne.x, ["quad-3", "quad-5", "quad-7"])) {
-      gameOver = true;
-      headDiv.textContent = `${playerOne.name} wins the game!`;
-      const refresh = document.createElement("button");
-      headDiv.appendChild(refresh);
-      refresh.classList.add("refresh");
-      refresh.textContent = "Play Again";
-      refresh.addEventListener("click", () => {
-        refresh.remove();
-        for (quadrant of quadrants) {
-          quadrant.textContent = "";
-        }
-        gameOver = false;
-        gameBoard.clearBoard();
-        playerOne.x.splice(0, 5);
-        playerTwo.o.splice(0, 5);
-        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-        headDiv.textContent = `${currentPlayer.name}'s turn`;
-        isRobot();
-        isEvilRobot();
-      })
-    }
-
-    else if (includesAll(playerTwo.o, ["quad-1", "quad-2", "quad-3"]) || includesAll(playerTwo.o, ["quad-4", "quad-5", "quad-6"]) ||
-      includesAll(playerTwo.o, ["quad-7", "quad-8", "quad-9"]) || includesAll(playerTwo.o, ["quad-1", "quad-4", "quad-7"]) ||
-      includesAll(playerTwo.o, ["quad-2", "quad-5", "quad-8"]) || includesAll(playerTwo.o, ["quad-3", "quad-6", "quad-9"]) ||
-      includesAll(playerTwo.o, ["quad-1", "quad-5", "quad-9"]) || includesAll(playerTwo.o, ["quad-3", "quad-5", "quad-7"])) {
-      gameOver = true;
-      headDiv.textContent = `${playerTwo.name} wins the game!`;
-      const refresh = document.createElement("button");
-      headDiv.appendChild(refresh);
-      refresh.classList.add("refresh");
-      refresh.textContent = "Play Again";
-      refresh.addEventListener("click", () => {
-        refresh.remove();
-        for (quadrant of quadrants) {
-          quadrant.textContent = "";
-        }
-        gameOver = false;
-        playerOne.x.splice(0, 5);
-        playerTwo.o.splice(0, 5);
-        gameBoard.clearBoard();
-        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-        headDiv.textContent = `${currentPlayer.name}'s turn`;
-        isRobot();
-        isEvilRobot();
-      })
-    }
-
-    else if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
+    } else if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
       headDiv.textContent = "It's a tie!";
       gameOver = true;
       const refresh = document.createElement("button");
@@ -235,7 +179,6 @@ const displayController = (function () {
         isEvilRobot();
       })
     }
-
   }
 
   const isRobot = () => {
@@ -263,37 +206,11 @@ const displayController = (function () {
     }
   }
 
-  const findEmpty = () => {
-    let empty = [];
-    for (quadrant of quadrants) {
-      if (quadrant.textContent === "") {
-        empty.push(quadrant);
-      }
-    }
-    return empty;
-  };
-
-  const findBestMove = () => {
-    let bestMove;
-    let bestScore = -10000;
-    let empty = findEmpty();
-      for (let i = 0; i < empty.length; i++) {
-          if (empty[i].score > bestScore) {
-              bestScore = empty[i].score;
-              bestMove = i;
-            }
-      }
-    console.log(bestMove);
-  }
-
-  
-
   const isEvilRobot = () => {
     if (playerTwo.name === "Terminator") {
       if (playerTwo === currentPlayer) {
         const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6",
           "quad-7", "quad-8", "quad-9"];
-          findBestMove();
         let roboChoice = "";
         if (quad1.textContent === "O" && quad2.textContent === "O" && quad3.textContent === "" || 
         quad6.textContent === "O" && quad9.textContent === "O" && quad3.textContent === "" || 
