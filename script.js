@@ -9,8 +9,8 @@ const gameBoard = (function () {
 })();
 
 const player = (name, marker) => {
-  const addToBoard = (marker, quad) => {
-    gameBoard.board[quad] = marker;
+  const addToBoard = (marker, index) => {
+    gameBoard.board[index] = marker;
   }
   return { name, marker, addToBoard};
 }
@@ -204,29 +204,29 @@ const displayController = (function () {
   }
 
   function emptyIndexes(board){
-    return  board.filter(s => s != "O" && s != "X");
+    return  board.filter(mark => mark != "O" && mark != "X");
   }
 
   function minimax(newBoard, player){
   
 
-    let availSpots = emptyIndexes(newBoard);
+    let empty = emptyIndexes(newBoard);
 
     if (checkForWin(newBoard, playerOne.marker)) {
       return {score:-10};
     } else if (checkForWin(newBoard, playerTwo.marker)) {
-        return {score:10};
-    } else if (availSpots.length === 0) {
-        return {score:0};
+      return {score:10};
+    } else if (empty.length === 0) {
+      return {score:0};
     }
 
     let moves = [];
 
-    for (let i = 0; i < availSpots.length; i++) {
+    for (let i = 0; i < empty.length; i++) {
       let move = {};
-  	  move.index = newBoard[availSpots[i]];
+  	  move.index = newBoard[empty[i]];
 
-      newBoard[availSpots[i]] = player;
+      newBoard[empty[i]] = player;
 
     
       if (player === playerTwo.marker){
@@ -237,7 +237,7 @@ const displayController = (function () {
         move.score = result.score;
       }
 
-      newBoard[availSpots[i]] = move.index;
+      newBoard[empty[i]] = move.index;
 
       moves.push(move);
     }
