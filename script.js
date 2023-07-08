@@ -133,16 +133,16 @@ const displayController = (function () {
 
   let gameOver = false;
 
-  function checkForWin(board, player){
+  function checkForWin(board, marker){
     if (
-    (board[0] === player && board[1] === player && board[2] === player) ||
-    (board[3] === player && board[4] === player && board[5] === player) ||
-    (board[6] === player && board[7] === player && board[8] === player) ||
-    (board[0] === player && board[3] === player && board[6] === player) ||
-    (board[1] === player && board[4] === player && board[7] === player) ||
-    (board[2] === player && board[5] === player && board[8] === player) ||
-    (board[0] === player && board[4] === player && board[8] === player) ||
-    (board[2] === player && board[4] === player && board[6] === player)
+    (board[0] === marker && board[1] === marker && board[2] === marker) ||
+    (board[3] === marker && board[4] === marker && board[5] === marker) ||
+    (board[6] === marker && board[7] === marker && board[8] === marker) ||
+    (board[0] === marker && board[3] === marker && board[6] === marker) ||
+    (board[1] === marker && board[4] === marker && board[7] === marker) ||
+    (board[2] === marker && board[5] === marker && board[8] === marker) ||
+    (board[0] === marker && board[4] === marker && board[8] === marker) ||
+    (board[2] === marker && board[4] === marker && board[6] === marker)
     ) {
       return true;
     } else {
@@ -196,7 +196,7 @@ const displayController = (function () {
     return  board.filter(mark => mark != "O" && mark != "X");
   }
 
-  function minimax(newBoard, player){
+  function minimax(newBoard, marker){
   
 
     let empty = emptyIndexes(newBoard);
@@ -215,10 +215,10 @@ const displayController = (function () {
       let move = {};
   	  move.index = newBoard[empty[i]];
 
-      newBoard[empty[i]] = player;
+      newBoard[empty[i]] = marker;
 
     
-      if (player === playerTwo.marker){
+      if (marker === playerTwo.marker){
         let result = minimax(newBoard, playerOne.marker);
         move.score = result.score;
       } else {
@@ -232,7 +232,7 @@ const displayController = (function () {
     }
 
     let bestMove;
-    if (player === playerTwo.marker) {
+    if (marker === playerTwo.marker) {
       let bestScore = -10000;
       for (let i = 0; i < moves.length; i++) {
         if(moves[i].score > bestScore){
@@ -283,13 +283,13 @@ const displayController = (function () {
     } else if (e.target.textContent != "" || gameOver === true) {
       return;
     } else {
-      let quad = "";
+      let index = "";
       for (let i = 0; i < quadrants.length; i++) {
         if (quadrants[i].id === e.target.id) {
-          quad = i;
+          index = i;
         }
       }
-      currentPlayer.addToBoard(currentPlayer.marker, quad);
+      currentPlayer.addToBoard(currentPlayer.marker, index);
       e.target.textContent = currentPlayer.marker;
       if (checkForWin(gameBoard.board, currentPlayer.marker)) {
         win();
