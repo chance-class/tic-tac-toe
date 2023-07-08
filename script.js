@@ -24,11 +24,13 @@ const displayController = (function () {
 
   const header = document.getElementById("header");
   const headDiv = document.createElement("div");
-  headDiv.classList.add("head");
   header.appendChild(headDiv);
-  headDiv.style.fontSize = "20px";
-  headDiv.style.textAlign = "center";
-  headDiv.textContent = "Player One's turn";
+  headDivP = document.createElement("p");
+  headDiv.classList.add("head");
+  headDiv.appendChild(headDivP);
+  headDivP.style.fontSize = "20px";
+  headDivP.style.textAlign = "center";
+  headDivP.textContent = "Player One's turn";
 
   const change1 = document.getElementById("change-1");
   const player1 = document.querySelector("#player1");
@@ -42,7 +44,7 @@ const displayController = (function () {
     }
     player1.textContent = `${playerOne.name}`;
     if (playerOne === currentPlayer && gameOver === false) {
-      headDiv.textContent = `${playerOne.name}'s turn`;
+      headDivP.textContent = `${playerOne.name}'s turn`;
     }
   })
 
@@ -63,7 +65,7 @@ const displayController = (function () {
       terminator.textContent = "Play Evil Computer";
     }
     if (playerTwo === currentPlayer && gameOver === false) {
-      headDiv.textContent = `${playerTwo.name}'s turn`;
+      headDivP.textContent = `${playerTwo.name}'s turn`;
     }
   })
 
@@ -82,7 +84,7 @@ const displayController = (function () {
       player2.textContent = "Player Two";
       robocop.textContent = "Play Computer";
       if (playerTwo === currentPlayer && gameOver === false) {
-        headDiv.textContent = `${playerTwo.name}'s turn`;
+        headDivP.textContent = `${playerTwo.name}'s turn`;
       }
     }
   })
@@ -102,10 +104,30 @@ const displayController = (function () {
       player2.textContent = "Player Two";
       terminator.textContent = "Play Evil Computer";
       if (playerTwo === currentPlayer && gameOver === false) {
-        headDiv.textContent = `${playerTwo.name}'s turn`;
+        headDivP.textContent = `${playerTwo.name}'s turn`;
       }
     }
   })
+
+  const refresh = document.createElement("button");
+  
+        headDiv.appendChild(refresh);
+        refresh.classList.add("refresh");
+        refresh.textContent = "Play Again";
+        refresh.style.display = "none";
+        refresh.addEventListener("click", () => {
+          for (quadrant of quadrants) {
+            quadrant.textContent = "";
+          }
+          gameOver = false;
+          gameBoard.clearBoard();
+          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+          headDivP.textContent = `${currentPlayer.name}'s turn`;
+          refresh.style.display = "none";
+          isRobot();
+          isEvilRobot();
+        })
+        
 
   const quadrants = document.querySelectorAll(".quadrant");
 
@@ -130,51 +152,18 @@ const displayController = (function () {
 
   const win = () => {
     gameOver = true;
-       headDiv.textContent = `${currentPlayer.name} wins the game!`;
-       const refresh = document.createElement("button");
-       headDiv.appendChild(refresh);
-       refresh.classList.add("refresh");
-       refresh.textContent = "Play Again";
-       refresh.addEventListener("click", () => {
-         refresh.remove();
-         for (quadrant of quadrants) {
-           quadrant.textContent = "";
-         }
-         gameOver = false;
-         gameBoard.clearBoard();
-         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-         headDiv.textContent = `${currentPlayer.name}'s turn`;
-         isRobot();
-         isEvilRobot();
-       })
+       headDivP.textContent = `${currentPlayer.name} wins the game!`;
+       refresh.style.display = "inline";
     } 
 
     const isATie = () => {
       let empty = emptyIndexes(gameBoard.board);
       if (empty.length === 0) {
-        headDiv.textContent = "It's a tie!";
+        headDivP.textContent = "It's a tie!";
         gameOver = true;
-        const refresh = document.createElement("button");
-        headDiv.appendChild(refresh);
-        refresh.classList.add("refresh");
-        refresh.textContent = "Play Again";
-        refresh.addEventListener("click", () => {
-          refresh.remove();
-          for (quadrant of quadrants) {
-            quadrant.textContent = "";
-          }
-          gameOver = false;
-          gameBoard.clearBoard();
-          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-          headDiv.textContent = `${currentPlayer.name}'s turn`;
-          isRobot();
-          isEvilRobot();
-        })
+        refresh.style.display = "inline";
       }
     }
-
-       
-  
 
   const isRobot = () => {
     if (playerTwo.name === "Robocop") {
@@ -196,7 +185,7 @@ const displayController = (function () {
           };
           if (gameOver === false) {
             currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-            headDiv.textContent = `${currentPlayer.name}'s turn`;
+            headDivP.textContent = `${currentPlayer.name}'s turn`;
           }
         }
       }
@@ -279,7 +268,7 @@ const displayController = (function () {
         };
         if (gameOver === false) {
           currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-          headDiv.textContent = `${currentPlayer.name}'s turn`;
+          headDivP.textContent = `${currentPlayer.name}'s turn`;
         }
       }
     }
@@ -309,7 +298,7 @@ const displayController = (function () {
       };
       if (gameOver === false) {
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-        headDiv.textContent = `${currentPlayer.name}'s turn`;
+        headDivP.textContent = `${currentPlayer.name}'s turn`;
       }
       isRobot();
       isEvilRobot();
