@@ -25,7 +25,7 @@ const displayController = (function () {
   const header = document.getElementById("header");
   const headDiv = document.createElement("div");
   header.appendChild(headDiv);
-  headDivP = document.createElement("p");
+  let headDivP = document.createElement("p");
   headDiv.classList.add("head");
   headDiv.appendChild(headDivP);
   headDivP.style.fontSize = "20px";
