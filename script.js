@@ -1,8 +1,8 @@
 const gameBoard = (function () {
-  const board = new Array(9);
+  const board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const clearBoard = () => {
     for (let i = 0; i < board.length; i++) {
-      board[i] = "";
+      board[i] = i;
     } 
   };
   return { board, clearBoard };
@@ -33,9 +33,7 @@ const displayController = (function () {
   //  const quad8 = document.getElementById("quad-8");
   //  const quad9 = document.getElementById("quad-9");
 
-  function emptyIndexes(board){
-    return  board.filter(s => s != "O" && s != "X");
-  }
+ 
 
   const playerOne = player("Player One", "X");
   const playerTwo = player("Player Two", "O");
@@ -122,7 +120,6 @@ const displayController = (function () {
   })
 
   const quadrants = document.querySelectorAll(".quadrant");
-  const includesAll = (arr, values) => values.every(v => arr.includes(v));
 
   let gameOver = false;
 
@@ -137,66 +134,83 @@ const displayController = (function () {
     (board[0] == player && board[4] == player && board[8] == player) ||
     (board[2] == player && board[4] == player && board[6] == player)
     ) {
-      gameOver = true;
-      headDiv.textContent = `${currentPlayer.name} wins the game!`;
-      const refresh = document.createElement("button");
-      headDiv.appendChild(refresh);
-      refresh.classList.add("refresh");
-      refresh.textContent = "Play Again";
-      refresh.addEventListener("click", () => {
-        refresh.remove();
-        for (quadrant of quadrants) {
-          quadrant.textContent = "";
-        }
-        gameOver = false;
-        gameBoard.clearBoard();
-        playerOne.x.splice(0, 5);
-        playerTwo.o.splice(0, 5);
-        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-        headDiv.textContent = `${currentPlayer.name}'s turn`;
-        isRobot();
-        isEvilRobot();
-      })
-    } else if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
-      headDiv.textContent = "It's a tie!";
-      gameOver = true;
-      const refresh = document.createElement("button");
-      headDiv.appendChild(refresh);
-      refresh.classList.add("refresh");
-      refresh.textContent = "Play Again";
-      refresh.addEventListener("click", () => {
-        refresh.remove();
-        for (quadrant of quadrants) {
-          quadrant.textContent = "";
-        }
-        gameOver = false;
-        playerOne.x.splice(0, 5);
-        playerTwo.o.splice(0, 5);
-        gameBoard.clearBoard();
-        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-        headDiv.textContent = `${currentPlayer.name}'s turn`;
-        isRobot();
-        isEvilRobot();
-      })
+      return true;
+    } else {
+      return false;
     }
   }
+
+  const win = () => {
+    gameOver = true;
+       headDiv.textContent = `${currentPlayer.name} wins the game!`;
+       const refresh = document.createElement("button");
+       headDiv.appendChild(refresh);
+       refresh.classList.add("refresh");
+       refresh.textContent = "Play Again";
+       refresh.addEventListener("click", () => {
+         refresh.remove();
+         for (quadrant of quadrants) {
+           quadrant.textContent = "";
+         }
+         gameOver = false;
+         gameBoard.clearBoard();
+         playerOne.x.splice(0, 5);
+         playerTwo.o.splice(0, 5);
+         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+         headDiv.textContent = `${currentPlayer.name}'s turn`;
+         isRobot();
+         isEvilRobot();
+       })
+    } 
+
+    const isATie = () => {
+      if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
+        headDiv.textContent = "It's a tie!";
+        gameOver = true;
+        const refresh = document.createElement("button");
+        headDiv.appendChild(refresh);
+        refresh.classList.add("refresh");
+        refresh.textContent = "Play Again";
+        refresh.addEventListener("click", () => {
+          refresh.remove();
+          for (quadrant of quadrants) {
+            quadrant.textContent = "";
+          }
+          gameOver = false;
+          playerOne.x.splice(0, 5);
+          playerTwo.o.splice(0, 5);
+          gameBoard.clearBoard();
+          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+          headDiv.textContent = `${currentPlayer.name}'s turn`;
+          isRobot();
+          isEvilRobot();
+        })
+      }
+    }
+
+       
+  
 
   const isRobot = () => {
     if (playerTwo.name === "Robocop") {
       if (playerTwo === currentPlayer) {
-        const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6",
+        const choices = ["qua-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6",
           "quad-7", "quad-8", "quad-9"];
         roboChoice = choices[Math.floor(Math.random() * choices.length)];
-        let quad = document.querySelector(`#${roboChoice}`);
+        let quad = document.querySelector(`#quad-${roboChoice}`);
         if (quad.textContent != "") {
           roboChoice = "";
           quad = "";
           isRobot();
         } else {
           currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
-          const value = (gameBoard.getBoard().length - 1);
+          const value = (gameBoard.board.length - 1);
           quad.textContent = gameBoard.getBoard()[`${value}`];
-          checkForWinner(currentPlayer.marker);
+          if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
+            win();
+          } else {
+            isATie();
+          };
           if (gameOver === false) {
             currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
             headDiv.textContent = `${currentPlayer.name}'s turn`;
@@ -206,117 +220,94 @@ const displayController = (function () {
     }
   }
 
-  const isEvilRobot = () => {
-    if (playerTwo.name === "Terminator") {
-      if (playerTwo === currentPlayer) {
-        const choices = ["quad-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6",
-          "quad-7", "quad-8", "quad-9"];
-        let roboChoice = "";
-        if (quad1.textContent === "O" && quad2.textContent === "O" && quad3.textContent === "" || 
-        quad6.textContent === "O" && quad9.textContent === "O" && quad3.textContent === "" || 
-        quad5.textContent === "O" && quad7.textContent === "O" && quad3.textContent === "") {
-          roboChoice = "quad-3";
-        } else if (quad2.textContent === "O" && quad3.textContent === "O" && quad1.textContent === "" || 
-        quad4.textContent === "O" && quad7.textContent === "O" && quad1.textContent === "" || 
-        quad9.textContent === "O" && quad5.textContent === "O" && quad1.textContent === "") {
-          roboChoice = "quad-1";
-        } else if (quad1.textContent === "O" && quad4.textContent === "O" && quad7.textContent === "" || 
-        quad8.textContent === "O" && quad9.textContent === "O" && quad7.textContent === "" || 
-        quad3.textContent === "O" && quad5.textContent === "O" && quad7.textContent === "") {
-          roboChoice = "quad-7";
-        } else if (quad3.textContent === "O" && quad6.textContent === "O" && quad9.textContent === "" || 
-        quad7.textContent === "O" && quad8.textContent === "O" && quad9.textContent === "" || 
-        quad1.textContent === "O" && quad5.textContent === "O" && quad9.textContent === "") {
-          roboChoice = "quad-9";
-        } else if (quad1.textContent === "O" && quad9.textContent === "O" && quad5.textContent === "" || 
-        quad3.textContent === "O" && quad7.textContent === "O" && quad5.textContent === "" || 
-        quad4.textContent === "O" && quad6.textContent === "O" && quad5.textContent === "" || 
-        quad2.textContent === "O" && quad8.textContent === "O" && quad5.textContent === "") {
-          roboChoice = "quad-5";
-        } else if (quad1.textContent === "O" && quad3.textContent === "O" && quad2.textContent === "" || 
-        quad5.textContent === "O" && quad8.textContent === "O" && quad2.textContent === "") {
-          roboChoice = "quad-2";
-        } else if (quad3.textContent === "O" && quad9.textContent === "O" && quad6.textContent === "" || 
-        quad4.textContent === "O" && quad5.textContent === "O" && quad6.textContent === "") {
-          roboChoice = "quad-6";
-        } else if (quad1.textContent === "O" && quad7.textContent === "O" && quad4.textContent === "" || 
-        quad5.textContent === "O" && quad6.textContent === "O" && quad4.textContent === "") {
-          roboChoice = "quad-4";
-        } else if (quad7.textContent === "O" && quad9.textContent === "O" && quad8.textContent === "" || 
-        quad2.textContent === "O" && quad5.textContent === "O" && quad8.textContent === "") {
-          roboChoice = "quad-8";
+  function emptyIndexes(board){
+    return  board.filter(s => s != "O" && s != "X");
+  }
 
-        } else if (quad5.textContent === "X" && quad1.textContent === "" && quad3.textContent === "" && 
-        quad7.textContent === "" && quad9.textContent === "") {
-          const moves = ["quad-1", "quad-3", "quad-7", "quad-9"];
-          roboChoice = moves[Math.floor(Math.random() * moves.length)];
-        } else if (includesAll(playerOne.x, ["quad-1", "quad-2"]) && !(includesAll(playerOne.x, ["quad-3"])) && !(includesAll(playerTwo.o, ["quad-3"])) || 
-        includesAll(playerOne.x, ["quad-6", "quad-9"]) && !(includesAll(playerOne.x, ["quad-3"])) && !(includesAll(playerTwo.o, ["quad-3"])) || 
-        includesAll(playerOne.x, ["quad-5", "quad-7"]) && !(includesAll(playerOne.x, ["quad-3"])) && !(includesAll(playerTwo.o, ["quad-3"]))) {
-          roboChoice = "quad-3"; 
-        } else if (quad2.textContent === "X" && quad3.textContent === "X" && quad1.textContent === "" || 
-        quad4.textContent === "X" && quad7.textContent === "X" && quad1.textContent === "" || 
-        quad9.textContent === "X" && quad5.textContent === "X" && quad1.textContent === "") {
-          roboChoice = "quad-1";
-        } else if (quad1.textContent === "X" && quad4.textContent === "X" && quad7.textContent === "" || 
-        quad8.textContent === "X" && quad9.textContent === "X" && quad7.textContent === "" || 
-        quad3.textContent === "X" && quad5.textContent === "X" && quad7.textContent === "") {
-          roboChoice = "quad-7";
-        } else if (quad3.textContent === "X" && quad6.textContent === "X" && quad9.textContent === "" || 
-        quad7.textContent === "X" && quad8.textContent === "X" && quad9.textContent === "" || 
-        quad1.textContent === "X" && quad5.textContent === "X" && quad9.textContent === "") {
-          roboChoice = "quad-9";
-        } else if (quad1.textContent === "X" && quad9.textContent === "X" && quad5.textContent === "" || 
-        quad3.textContent === "X" && quad7.textContent === "X" && quad5.textContent === "" || 
-        quad4.textContent === "X" && quad6.textContent === "X" && quad5.textContent === "" || 
-        quad2.textContent === "X" && quad8.textContent === "X" && quad5.textContent === "") {
-          roboChoice = "quad-5";
-        } else if (quad1.textContent === "X" && quad3.textContent === "X" && quad2.textContent === "" || 
-        quad5.textContent === "X" && quad8.textContent === "X" && quad2.textContent === "") {
-          roboChoice = "quad-2";
-        } else if (quad3.textContent === "X" && quad9.textContent === "X" && quad6.textContent === "" || 
-        quad4.textContent === "X" && quad5.textContent === "X" && quad6.textContent === "") {
-          roboChoice = "quad-6";
-        } else if (quad1.textContent === "X" && quad7.textContent === "X" && quad4.textContent === "" ||  
-        quad5.textContent === "X" && quad6.textContent === "X" && quad4.textContent === "") {
-          roboChoice = "quad-4";
-        } else if (quad7.textContent === "X" && quad9.textContent === "X" && quad8.textContent === "" || 
-        quad2.textContent === "X" && quad5.textContent === "X" && quad8.textContent === "") {
-          roboChoice = "quad-8";
-        } else if (quad1.textContent === "X" && quad3.textContent === "" && quad7.textContent === "" && 
-        quad9.textContent === "" && quad5.textContent === "") {
-          const moves = ["quad-5", "quad-9"];
-          roboChoice = moves[Math.floor(Math.random() * moves.length)];
-        } else if (quad1.textContent === "" && quad3.textContent === "X" && quad7.textContent === "" && 
-        quad9.textContent === "" && quad5.textContent === "") {
-          const moves = ["quad-5", "quad-7"];
-          roboChoice = moves[Math.floor(Math.random() * moves.length)];
-        } else if (quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "X" && 
-        quad9.textContent === "" && quad5.textContent === "") {
-          const moves = ["quad-5", "quad-3"];
-          roboChoice = moves[Math.floor(Math.random() * moves.length)];
-        } else if (quad1.textContent === "" && quad3.textContent === "" && quad7.textContent === "" && 
-        quad9.textContent === "X" && quad5.textCOntent === "") {
-          const moves = ["quad-5", "quad-1"];
-          roboChoice = moves[Math.floor(Math.random() * moves.length)];
-        } else {
-          roboChoice = choices[Math.floor(Math.random() * choices.length)];
-        }
+  function minimax(newBoard, player){
+  
 
-        let quad = document.querySelector(`#${roboChoice}`);
-        if (quad.textContent != "") {
-          roboChoice = "";
-          quad = "";
-          isEvilRobot();
-        } else {
-          currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
-          const value = (gameBoard.getBoard().length - 1);
-          quad.textContent = gameBoard.getBoard()[`${value}`];
-          checkForWinner(currentPlayer.marker);
-          if (gameOver === false) {
-            currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-            headDiv.textContent = `${currentPlayer.name}'s turn`;
-          }
+    let availSpots = emptyIndexes(newBoard);
+
+    if (checkForWin(newBoard, playerOne.marker)){
+        return {score:-10};
+     }
+       else if (checkForWin(newBoard, playerTwo.marker)){
+       return {score:10};
+       }
+     else if (availSpots.length === 0){
+         return {score:0};
+     }
+
+     let moves = [];
+
+    for (let i = 0; i < availSpots.length; i++){
+    
+    let move = {};
+  	move.index = newBoard[availSpots[i]];
+
+    newBoard[availSpots[i]] = player;
+
+    
+    if (player === playerTwo.marker){
+      let result = minimax(newBoard, playerOne.marker);
+      move.score = result.score;
+    }
+    else{
+      let result = minimax(newBoard, playerTwo.marker);
+      move.score = result.score;
+    }
+
+
+    newBoard[availSpots[i]] = move.index;
+
+
+    moves.push(move);
+  }
+
+  let bestMove;
+  if(player === playerTwo.marker){
+    var bestScore = -10000;
+    for(var i = 0; i < moves.length; i++){
+      if(moves[i].score > bestScore){
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  } else {
+
+    var bestScore = 10000;
+    for(var i = 0; i < moves.length; i++){
+      if(moves[i].score < bestScore){
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  }
+
+  return moves[bestMove];
+}
+
+
+const isEvilRobot = () => {
+  if (playerTwo.name === "Terminator") {
+    if (playerTwo === currentPlayer) {
+      roboChoice = minimax(gameBoard.board, playerTwo.marker);
+      
+    console.log(roboChoice);
+    currentPlayer.addToBoard(currentPlayer.marker, roboChoice.index);
+    console.log(gameBoard.board);
+    console.log(roboChoice.index);
+    let selected = document.querySelector(`#quad-${roboChoice.index}`);
+    selected.textContent = currentPlayer.marker;
+    if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
+      win();
+    } else {
+      isATie();
+    };
+        if (gameOver === false) {
+          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+          headDiv.textContent = `${currentPlayer.name}'s turn`;
         }
       }
     }
@@ -340,7 +331,11 @@ const displayController = (function () {
       console.log(selected);
       currentPlayer.addToBoard(currentPlayer.marker, selected);
       e.target.textContent = currentPlayer.marker;
-      checkForWin(gameBoard.board, currentPlayer.marker);
+      if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
+        win();
+      } else {
+        isATie();
+      };
       if (gameOver === false) {
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
         headDiv.textContent = `${currentPlayer.name}'s turn`;

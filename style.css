@@ -112,18 +112,18 @@ button:hover {
   color: #0d9488;
 }
 
-#quad-5 {
+#quad-4 {
   border: 7px solid #042f2e;
 }
 
-#quad-2, 
-#quad-8 {
+#quad-1, 
+#quad-7 {
   border-right: 7px solid #042f2e;
   border-left: 7px solid #042f2e;
 }
 
-#quad-4, 
-#quad-6 {
+#quad-3, 
+#quad-5 {
   border-top: 7px solid #042f2e;;
   border-bottom: 7px solid #042f2e;
 }
