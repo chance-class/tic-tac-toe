@@ -59,7 +59,7 @@ const displayController = (function () {
       playerOne.name = "Player One";
     }
     player1.textContent = `${playerOne.name}`;
-    if (playerOne === currentPlayer) {
+    if (playerOne === currentPlayer && gameOver === false) {
       headDiv.textContent = `${playerOne.name}'s turn`;
     }
   })
@@ -80,7 +80,7 @@ const displayController = (function () {
     } else if (terminator.textContent === "Play User") {
       terminator.textContent = "Play Evil Computer";
     }
-    if (playerTwo === currentPlayer) {
+    if (playerTwo === currentPlayer && gameOver === false) {
       headDiv.textContent = `${playerTwo.name}'s turn`;
     }
   })
@@ -194,8 +194,7 @@ const displayController = (function () {
   const isRobot = () => {
     if (playerTwo.name === "Robocop") {
       if (playerTwo === currentPlayer) {
-        const choices = ["qua-1", "quad-2", "quad-3", "quad-4", "quad-5", "quad-6",
-          "quad-7", "quad-8", "quad-9"];
+        const choices = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         roboChoice = choices[Math.floor(Math.random() * choices.length)];
         let quad = document.querySelector(`#quad-${roboChoice}`);
         if (quad.textContent != "") {
@@ -204,8 +203,7 @@ const displayController = (function () {
           isRobot();
         } else {
           currentPlayer.addToBoard(currentPlayer.marker, roboChoice);
-          const value = (gameBoard.board.length - 1);
-          quad.textContent = gameBoard.getBoard()[`${value}`];
+          quad.textContent = currentPlayer.marker;
           if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
             win();
           } else {
@@ -258,17 +256,15 @@ const displayController = (function () {
       move.score = result.score;
     }
 
-
     newBoard[availSpots[i]] = move.index;
-
 
     moves.push(move);
   }
 
   let bestMove;
   if(player === playerTwo.marker){
-    var bestScore = -10000;
-    for(var i = 0; i < moves.length; i++){
+    let bestScore = -10000;
+    for(let i = 0; i < moves.length; i++){
       if(moves[i].score > bestScore){
         bestScore = moves[i].score;
         bestMove = i;
@@ -276,8 +272,8 @@ const displayController = (function () {
     }
   } else {
 
-    var bestScore = 10000;
-    for(var i = 0; i < moves.length; i++){
+    let bestScore = 10000;
+    for(let i = 0; i < moves.length; i++){
       if(moves[i].score < bestScore){
         bestScore = moves[i].score;
         bestMove = i;
@@ -293,25 +289,21 @@ const isEvilRobot = () => {
   if (playerTwo.name === "Terminator") {
     if (playerTwo === currentPlayer) {
       roboChoice = minimax(gameBoard.board, playerTwo.marker);
-      
-    console.log(roboChoice);
-    currentPlayer.addToBoard(currentPlayer.marker, roboChoice.index);
-    console.log(gameBoard.board);
-    console.log(roboChoice.index);
-    let selected = document.querySelector(`#quad-${roboChoice.index}`);
-    selected.textContent = currentPlayer.marker;
-    if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
-      win();
-    } else {
-      isATie();
-    };
-        if (gameOver === false) {
-          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-          headDiv.textContent = `${currentPlayer.name}'s turn`;
-        }
+      currentPlayer.addToBoard(currentPlayer.marker, roboChoice.index);
+      let selected = document.querySelector(`#quad-${roboChoice.index}`);
+      selected.textContent = currentPlayer.marker;
+      if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
+        win();
+      } else {
+        isATie();
+      };
+      if (gameOver === false) {
+        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+        headDiv.textContent = `${currentPlayer.name}'s turn`;
       }
     }
   }
+}
 
 
 
@@ -322,14 +314,13 @@ const isEvilRobot = () => {
     } else if (e.target.textContent != "" || gameOver === true) {
       return;
     } else {
-      let selected = "";
+      let quad = "";
       for (let i = 0; i < quadrants.length; i++) {
         if (quadrants[i].id === e.target.id) {
-          selected = i;
+          quad = i;
         }
       }
-      console.log(selected);
-      currentPlayer.addToBoard(currentPlayer.marker, selected);
+      currentPlayer.addToBoard(currentPlayer.marker, quad);
       e.target.textContent = currentPlayer.marker;
       if (checkForWin(gameBoard.board, currentPlayer.marker) === true) {
         win();
@@ -342,7 +333,6 @@ const isEvilRobot = () => {
       }
       isRobot();
       isEvilRobot();
-      console.log(gameBoard.board);
     }
   });
   return { gameOver };
