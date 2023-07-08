@@ -9,17 +9,10 @@ const gameBoard = (function () {
 })();
 
 const player = (name, marker) => {
-  let x = [], o = [];
   const addToBoard = (marker, quad) => {
     gameBoard.board[quad] = marker;
-    if (marker === "X") {
-      x.push(quad);
-    } else if (marker === "O") {
-      o.push(quad);
-    }
-
   }
-  return { name, marker, addToBoard, x, o };
+  return { name, marker, addToBoard};
 }
 
 const displayController = (function () { 
@@ -149,8 +142,6 @@ const displayController = (function () {
          }
          gameOver = false;
          gameBoard.clearBoard();
-         playerOne.x.splice(0, 5);
-         playerTwo.o.splice(0, 5);
          currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
          headDiv.textContent = `${currentPlayer.name}'s turn`;
          isRobot();
@@ -159,7 +150,8 @@ const displayController = (function () {
     } 
 
     const isATie = () => {
-      if (playerOne.x.length === 5 || playerTwo.o.length === 5) {
+      let empty = emptyIndexes(gameBoard.board);
+      if (empty.length === 0) {
         headDiv.textContent = "It's a tie!";
         gameOver = true;
         const refresh = document.createElement("button");
@@ -172,8 +164,6 @@ const displayController = (function () {
             quadrant.textContent = "";
           }
           gameOver = false;
-          playerOne.x.splice(0, 5);
-          playerTwo.o.splice(0, 5);
           gameBoard.clearBoard();
           currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
           headDiv.textContent = `${currentPlayer.name}'s turn`;
